@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Настройки профиля</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: rgba(255, 165, 0, 0.7); /* Полупрозрачный оранжевый фон */
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            font-size: 30px; /* Увеличенный размер шрифта */
+            text-shadow: 0 0 5px #ffffff, 0 0 10px #ff0000; /* Неоновый эффект */
+        }
+        .container {
+            padding: 20px;
+            max-width: 600px;
+            margin: auto; /* Центрируем контейнер */
+        }
+        h2 {
+            font-size: 28px; /* Увеличенный размер заголовка */
+            color: blue; /* Синий цвет заголовка */
+            text-shadow: 0 0 5px #ffffff, 0 0 10px #0000ff; /* Неоновый эффект */
+        }
+        .section {
+            margin-bottom: 15px; /* Уменьшенное расстояние */
+        }
+        input[type="text"], input[type="email"], input[type="password"] {
+            width: 100%;
+            padding: 10px; /* Увеличенный внутренний отступ */
+            margin: 5px 0; /* Уменьшенное расстояние */
+            border: 1px solid #ccc;
+            border-radius: 5px; /* Скругленные углы */
+        }
+        button {
+            padding: 10px 15px; /* Увеличенные отступы */
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px; /* Скругленные углы */
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049; /* Изменение цвета при наведении */
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Настройки профиля</h1>
+</header>
+
+<div class="container">
+
+    <h2>Изменение настроек</h2>
+
+    <div class="section">
+        <h3>Изменить имя</h3>
+        <input type="text" id="newName" placeholder="Введите новое имя">
+        <button onclick="changeName()">Сохранить</button>
+    </div>
+
+    <div class="section">
+        <h3>Загрузить фото профиля</h3>
+        <input type="file" id="uploadProfilePhoto" accept="image/*">
+        <button onclick="uploadProfilePhoto()">Загрузить фото</button>
+    </div>
+
+    <div class="section">
+        <h3>Изменить электронный адрес</h3>
+        <input type="email" id="newEmail" placeholder="Введите новый электронный адрес">
+        <button onclick="changeEmail()">Сохранить</button>
+    </div>
+
+    <div class="section">
+        <h3>Изменить пароль</h3>
+        <input type="password" id="newPassword" placeholder="Введите новый пароль">
+        <button onclick="changePassword()">Сохранить</button>
+    </div>
+
+</div>
+
+<script>
+    function changeName() {
+        const newName = document.getElementById('newName').value;
+        alert('Имя изменено на: ' + newName);
+        // Здесь можно добавить логику для изменения имени на сервере
+    }
+
+    function uploadProfilePhoto() {
+        const fileInput = document.getElementById('uploadProfilePhoto');
+        const file = fileInput.files[0];
+        if (file) {
+            alert('Фото профиля загружено: ' + file.name);
+            // Здесь можно добавить логику для загрузки фото на сервер
+        }
+    }
+
+    function changeEmail() {
+        const newEmail = document.getElementById('newEmail').value;
+        alert('Электронный адрес изменен на: ' + newEmail);
+        // Здесь можно добавить логику для изменения email на сервере
+    }
+
+    function changePassword() {
+        const newPassword = document.getElementById('newPassword').value;
+        alert('Пароль изменен');
+        // Здесь можно добавить логику для изменения пароля на сервере
+    }
+</script>
+
+</body>
+</html>
