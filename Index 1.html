@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Личный кабинет</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: rgba(255, 165, 0, 0.7); /* Полупрозрачный оранжевый фон */
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            font-size: 30px; /* Увеличенный размер шрифта */
+            text-shadow: 0 0 5px #ffffff, 0 0 10px #ff0000; /* Неоновый эффект */
+        }
+        nav {
+            display: flex;
+            justify-content: space-around;
+            background-color: #333;
+            padding: 10px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px; /* Уменьшенное расстояние */
+            font-size: 22px; /* Увеличенный размер шрифта для навигации */
+            text-shadow: 0 0 5px #ffffff, 0 0 10px #ff0000; /* Неоновый эффект */
+        }
+        nav a:hover {
+            background-color: #575757;
+            border-radius: 4px;
+        }
+        .container {
+            padding: 15px; /* Уменьшенное расстояние */
+            max-width: 800px; /* Ограничиваем ширину контейнера */
+            margin: auto; /* Центрируем контейнер */
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .section {
+            margin-bottom: 15px; /* Уменьшенное расстояние */
+        }
+        .indicator {
+            width: 10px;
+            height: 10px;
+            background-color: red;
+            border-radius: 50%;
+            display: inline-block;
+            margin-left: 5px;
+        }
+        h3 {
+            font-size: 24px; /* Увеличенный размер заголовков */
+            color: blue; /* Синий цвет заголовков загрузки */
+            text-shadow: 0 0 5px #ffffff, 0 0 10px #0000ff; /* Неоновый эффект для заголовков */
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Личный кабинет</h1>
+</header>
+
+<nav>
+    <a href="#" id="photoTab">Фото <span class="indicator" id="photoIndicator" style="display: none;"></span></a>
+    <a href="#" id="videoTab">Видео <span class="indicator" id="videoIndicator" style="display: none;"></span></a>
+    <a href="#" id="profileTab">Мой профиль <span class="indicator" id="profileIndicator" style="display: none;"></span></a>
+</nav>
+
+<div class="container">
+
+    <!-- Раздел Фото -->
+    <div id="photoSection" class="tab-content active">
+        <h2 style="font-size: 28px; text-shadow: 0 0 5px #ffffff, 0 0 10px #ff0000;">Фото</h2>
+        <div class="section">
+            <h3>Загрузить фото</h3>
+            <input type="file" id="uploadPhoto" accept="image/*" multiple>
+            <button style="color: blue;" onclick="uploadImage()">Загрузить фото</button>
+            <button style="color: blue;" onclick="enableDeleteMode('photo')">Удаление фото</button>
+        </div>
+        <div class="section">
+            <h3>Ваши фото</h3>
+            <div id="photoGallery"></div>
+        </div>
+    </div>
+
+    <!-- Раздел Видео -->
+    <div id="videoSection" class="tab-content">
+        <h2 style="font-size: 28px; text-shadow: 0 0 5px #ffffff, 0 0 10px #ff0000;">Видео</h2>
+        <div class="section">
+            <h3>Загрузить видео</h3>
+            <input type="file" id="uploadVideo" accept="video/*" multiple>
+            <button style="color: blue;" onclick="uploadVideo()">Загрузить видео</button>
+            <button style="color: blue;" onclick="enableDeleteMode('video')">Удаление видео</button>
+        </div>
+        <div class="section">
+            <h3>Ваши видео</h3>
+            <div id="videoGallery"></div>
+        </div>
+    </div>
+
+    <!-- Раздел Мой профиль -->
+    <div id="profileSection" class="tab-content">
+        <h2 style="font-size: 28px; text-shadow: 0 0 5px #ffffff, 0 0 10px #ff0000;">Мой профиль</h2>
+        <div class="section">
+            <p style="font-size: 20px;">Имя: <strong>Твое Имя</strong></p>
+            <img src="profile-photo.jpg" alt="Ваше фото" style="width:100px; height:100px; border-radius:50%;">
+        </div>
+        <div class="section">
+            <h3>Настройки</h3>
+            <button onclick="alert('Настройки пока недоступны')">Настройки</button>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // Функция для переключения вкладок
+    document.getElementById('photoTab').addEventListener('click', function() {
+        showSection('photoSection', 'photoIndicator');
+    });
+    document.getElementById('videoTab').addEventListener('click', function() {
+        showSection('videoSection', 'videoIndicator');
+    });
+    document.getElementById('profileTab').addEventListener('click', function() {
+        showSection('profileSection', 'profileIndicator');
+    });
+
+    function showSection(sectionId, indicatorId) {
+        document.querySelectorAll('.tab-content').forEach(function(content) {
+            content.classList.remove('active');
+        });
+        document.getElementById(sectionId).classList.add('active');
+
+        // Скрыть индикаторы для всех разделов
+        document.querySelectorAll('.indicator').forEach(function(indicator) {
+            indicator.style.display = 'none';
+        });
+
+        // Показать индикатор для текущего раздела
+        document.getElementById(indicatorId).style.display = 'inline-block';
+    }
+
+    // Функции загрузки фото и видео
+    function uploadImage() {
+        const fileInput = document.getElementById('uploadPhoto');
+        const photoGallery = document.getElementById('photoGallery');
+        const files = fileInput.files;
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = document.createElement('img');
+                img.src = e.target.result;
+                photoGallery.appendChild(img);
+            };
+            reader.readAsDataURL(file);
+        }
+        fileInput.value = ""; // Очистить поле после загрузки
+    }
+
+    function uploadVideo() {
+        const fileInput = document.getElementById('uploadVideo');
+        const videoGallery = document.getElementById('videoGallery');
+        const files = fileInput.files;
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const video = document.createElement('video');
+                video.src = e.target.result;
+                video.controls = true;
+                videoGallery.appendChild(video);
+            };
+            reader.readAsDataURL(file);
+        }
+        fileInput.value = ""; // Очистить поле после загрузки
+    }
+
+    function enableDeleteMode(type) {
+        const gallery = type === 'photo' ? document.getElementById('photoGallery') : document.getElementById('videoGallery');
+        const checkboxes = gallery.querySelectorAll('.checkbox');
+        checkboxes.forEach(checkbox => {
+            checkbox.style.display = checkbox.style.display === 'none' ? 'block' : 'none';
+        });
+    }
+</script>
+
+</body>
+</html>
